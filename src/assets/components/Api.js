@@ -36,9 +36,17 @@ const Api = () => {
         setPokemon({"oculto": pokemon.oculto, "resposta": resultado.target.value})
     }
 
+    const reload = () => {
+        setTimeout(() => {
+            document.location.reload()
+        }, 1000)
+    }
+
     const showResult = () => {
         if(pokemon.oculto.toUpperCase() == pokemon.resposta.toUpperCase()) {
             setResultado(<Congrats text="Parabéns, Você acertou!!" classe="congrats" />)
+            document.getElementById('pokeImage').style.filter = "brightness(1)"
+            reload()
         }else {
             setResultado(<Congrats text="Tente novamente!" classe="sorry" />)
         }
@@ -46,7 +54,7 @@ const Api = () => {
 
     return (
         <>
-            <Image src={spritePokemon} alt="Pokémon" />
+            <Image src={spritePokemon} alt="Pokémon" id="pokeImage"/>
             <Input type="text" name="pokemon" onChange={resultado => {getText(resultado)}} />
             <Button onClick={showResult}>Enviar</Button>
             <div>{resultado}</div>
